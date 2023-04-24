@@ -19,7 +19,7 @@ This is the mvc system using Pure PHP Language. It is suitable for all users.
 
 ## Template 
 
- Templates of admin panel and Front End UI does not own. I downloaded from https://www.free-css.com/.
+ I don't own templates of admin panel and Front-End UI. I downloaded from https://www.free-css.com/.
 
  The system was implemented by inspiring the following youtube series.
 
