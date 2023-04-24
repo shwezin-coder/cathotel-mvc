@@ -49,8 +49,12 @@ This is the mvc system using Pure PHP Language. It is suitable for all users.
 
  I don't own templates of admin panel and Front-End UI. I downloaded from https://www.free-css.com/.
 
- The system was implemented by inspiring the following youtube series.
+ ## Resources 
 
+- ### PHP MVC OOP Series
 https://www.youtube.com/playlist?list=PLL4sNmZle1wBauJ1Xi87AQYRmu4n3Vaq8
+
+- ### Routing 
+https://medium.com/@miraclechibuzo/simple-mvc-framework-with-php-routing-6e5ccf69880
 
 
