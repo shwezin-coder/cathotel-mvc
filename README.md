@@ -54,7 +54,7 @@ This is the mvc system using Pure PHP Language. It is suitable for all users.
 - ### PHP MVC OOP Series
 https://www.youtube.com/playlist?list=PLL4sNmZle1wBauJ1Xi87AQYRmu4n3Vaq8
 
-- ### Routing 
-https://medium.com/@miraclechibuzo/simple-mvc-framework-with-php-routing-6e5ccf69880
+- ### MVC Tutorial 
+https://medium.com/@miraclechibuzo/simple-mvc-framework-with-php-9bd9da089c72
 
 
