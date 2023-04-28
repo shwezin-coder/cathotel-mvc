@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <?php var_dump($requestData); ?>
     <h1>Hello World</h1>
+    <?php var_dump($ContactUs);?>
     <form action="" method="POST">
         <input type="text" name="name" value="testing">
         <button type="submit">Submit</button>

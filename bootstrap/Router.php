@@ -6,8 +6,10 @@ class Router
 {
     use RouteMethod, UrlEngine, View;
     private $request;
+    private $dbc;
 
-    public function __construct(){
+    public function __construct($dbc){
+        $this->dbc = $dbc;
         $this->request = new Request();
     }
     /**
@@ -20,9 +22,11 @@ class Router
         if (!$callable){
             throw new \Exception('Oops! you are lost', 404);
         }
+
         //call the class, pass the method
         //add the default namespace to the controller
         $class = "App\\Controllers\\".$callable['class'];
+
         if (!class_exists($class)){
             throw new \Exception('Class does not exist', 500);
         }
@@ -32,13 +36,13 @@ class Router
         if (!is_callable($class, $method)){
             throw new \Exception("$method is not a valid method in class $callable[class]", 500);
         }
-        $class = new $class();
 
+        $class = new $class($this->dbc);
+        
         //run the method
         $class->$method($this->request);
         return;
     }
-
     private function match($method, $url)
     {
         foreach (self::$map[$method] as $uri=>$call){
