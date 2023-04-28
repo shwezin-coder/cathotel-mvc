@@ -70,7 +70,29 @@ abstract class Model{
         }
         return $object;
     }
+
     public function save()
+    {
+        $fieldBindings = [];
+        $prepareFields = [];
+
+        foreach ($this->fields as $fieldName) {
+            $fieldBindings[$fieldName] = $fieldName;
+            $keyBindings[$fieldName] = ":" .$fieldName;
+            $prepareFields[$fieldName] = $this->$fieldName;
+            
+        }
+
+        $fieldBindingsString = join(',',$fieldBindings);
+        $keyBindingsString = join(',',$keyBindings);
+
+        $sql = "INSERT INTO " . $this->tableName ." ( ". $fieldBindingsString 
+                . " ) VALUES ( ".$keyBindingsString . ")";
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($prepareFields);
+    }
+
+    public function update()
     {
         $fieldBindings = [];
         $keyBindings = [];
@@ -91,6 +113,24 @@ abstract class Model{
         $keyBindingsString = join(',',$keyBindings);
 
         $sql = "UPDATE " . $this->tableName ." SET ". $fieldBindingsString 
+                . " WHERE ".$keyBindingsString;
+
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($prepareFields);
+    }
+
+    public function delete()
+    {
+        $keyBindings = [];
+        $prepareFields = [];
+        foreach ($this->primaryKeys as $keyName) {
+            $keyBindings[$keyName] = $keyName . ' = :' . $keyName;
+            $prepareFields[$keyName] = $this->$keyName;
+        }
+
+        $keyBindingsString = join(',',$keyBindings);
+
+        $sql = "DELETE FROM " . $this->tableName
                 . " WHERE ".$keyBindingsString;
 
         $stmt = $this->dbc->prepare($sql);

@@ -16,10 +16,9 @@ class HomeController{
         // SweetAlert::showMessage('Testing','Testing Successfully','success');
         return view('home.index',compact('ContactUs'));
     }
-    public function test(Request $request)
+    public function delete()
     {
-        $string = "My First Framework";
-        $requestData = $request;
-        return view('home.index', compact('requestData'));
+        
     }
+
 }
