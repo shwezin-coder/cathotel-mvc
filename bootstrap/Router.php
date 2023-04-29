@@ -26,14 +26,20 @@ class Router
         //call the class, pass the method
         //add the default namespace to the controller
         $class = "App\\Controllers\\".$callable['class'];
+        $admin_class = "App\\Controllers\\Admin\\".$callable['class'];
 
         if (!class_exists($class)){
-            throw new \Exception('Class does not exist', 500);
+           if(!class_exists($admin_class))
+           {
+                throw new \Exception("Controller doesn't exist");
+           }
+           $class = $admin_class;
         }
 
         $method = $callable['method'];
 
         if (!is_callable($class, $method)){
+             
             throw new \Exception("$method is not a valid method in class $callable[class]", 500);
         }
 

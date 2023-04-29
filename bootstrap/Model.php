@@ -117,6 +117,7 @@ abstract class Model{
 
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($prepareFields);
+        return true;
     }
 
     public function delete()

@@ -2,20 +2,22 @@
 namespace App\Models;
 use Core\Model;
 
-class ContactUs extends Model{  
+class User extends Model{  
     public function __construct($dbc)
     {
-        parent::__construct($dbc,'contact_us');
+        parent::__construct($dbc,'users');
         
     }
     protected function initFields()
     {
         $this->fields = [
             'name',
+            'role',
             'email',
-            'subject',
-            'message'
+            'password',
+            'phone_number'
         ];
     }
+
 
 }

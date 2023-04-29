@@ -9,7 +9,7 @@ class ContactController{
         $this->dbc = $dbc;
     }
     public function index(){
-        return view('contact_us.index');
+        return view('contact_us');
     }
     public function save()
     {

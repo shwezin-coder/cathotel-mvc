@@ -14,4 +14,19 @@ class SweetAlert {
     });
       </script>";
     }
+    public static function redirect_Message($title,$message,$type,$url)
+    {
+          echo "<script>
+          $( document ).ready(function() {
+            Swal.fire({
+                title: '$title',
+                text: '$message',
+                type: '$type',
+                confirmButtonText: 'OK'
+              }).then(function() {
+                window.location = '$url';
+            });
+        });
+          </script>";
+    }
   }
