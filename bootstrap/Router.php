@@ -31,6 +31,7 @@ class Router
         if (!class_exists($class)){
            if(!class_exists($admin_class))
            {
+                
                 throw new \Exception("Controller doesn't exist");
            }
            $class = $admin_class;

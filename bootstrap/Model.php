@@ -92,6 +92,39 @@ abstract class Model{
         $stmt->execute($prepareFields);
     }
 
+
+    public function find($findings,$condition)
+    {
+        $fieldBindings = [];
+        $prepareFields = [];
+
+        foreach ($findings as $key => $value) {
+            $fieldBindings[$key] = $key .' '. $condition .'  :' . $key;
+            $prepareFields[$key] = $value;
+            
+        }
+
+        $fieldBindingsString = join('AND',$fieldBindings);
+
+        $sql = "SELECT * FROM " . $this->tableName
+                . " WHERE ".$fieldBindingsString ;
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($prepareFields);
+        $pageData = $stmt->fetchAll();
+        if($pageData)
+        {
+            $className = static::class;
+            foreach ($pageData as $objData) {
+                $object = new $className($this->dbc);
+                $object = $this->setValues($objData,$object);
+                $result[] = $object;
+            }
+            return $result;
+
+        }
+    }
+
+
     public function update()
     {
         $fieldBindings = [];

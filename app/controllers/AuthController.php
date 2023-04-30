@@ -2,15 +2,16 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use Core\Auth;
 use Core\SweetAlert;
 
-class LoginController{
+class AuthController{
     private $dbc;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
     }
-    public function view(){
+    public function index(){
         return view('login');
     }
 
@@ -40,6 +41,13 @@ class LoginController{
             return redirect('user-profile');
         }
 
+
+    }
+    public function logout()
+    {
+        Auth::auth();
+        session_destroy();
+        return redirect('login');
 
     }
 }

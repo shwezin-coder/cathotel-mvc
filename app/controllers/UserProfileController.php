@@ -12,10 +12,14 @@ class UserProfileController{
     }
     public function index()
     {
-        Auth::auth();
-        $User = new User($this->dbc);
-        $User = $User->findBy('id',$_SESSION['user']['user_id']);
-        return view('user_profile',compact('User'));
+        $auth = Auth::auth();
+        if($auth == true)
+        {
+            $User = new User($this->dbc);
+            $User = $User->findBy('id',$_SESSION['user']['user_id']);
+            return view('user_profile',compact('User'));
+        }
+        
     }
     public function update()
     {

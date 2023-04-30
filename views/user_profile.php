@@ -18,7 +18,7 @@
                                 <p><a href="view-booking.php"><i class="fa fa-envelope-open text-primary me-2"></i><span class="text-dark">View Booking</span></a></p>
                             </div>
                             <div class="col-md-4">
-                                <p><a href="logout.php"><i class="fa fa-envelope-open text-primary me-2"></i><span class="text-dark">Log Out</span></a></p>
+                                <p><a href="logout"><i class="fa fa-envelope-open text-primary me-2"></i><span class="text-dark">Log Out</span></a></p>
                             </div>
                         </div>
                     </div>

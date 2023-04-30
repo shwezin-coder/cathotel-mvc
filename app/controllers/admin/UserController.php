@@ -1,10 +1,9 @@
 <?php 
 namespace App\Controllers\Admin;
 
+use App\Models\User;
 use Core\Auth;
-use Core\SweetAlert;
-// use App\Models\ContactUs;
-class IndexController{
+class UserController{
     private $dbc;
     public function __construct($dbc)
     {
@@ -13,10 +12,14 @@ class IndexController{
     public function index()
     {
         $auth = Auth::auth();
+        $find['role'] = 3;
+        $Users = new User($this->dbc);
+        $Users = $Users->find($find,"!=");
         if($auth == true)
         {
-            return view('admin.index');
+            return view('admin.users',compact('Users'));
         }
+
     }
 
 }
