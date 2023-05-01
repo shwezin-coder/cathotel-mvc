@@ -2,20 +2,20 @@
 namespace App\Models;
 use Core\Model;
 
-class User extends Model{  
+class Room extends Model{  
     public function __construct($dbc)
     {
-        parent::__construct($dbc,'users');
+        parent::__construct($dbc,'rooms');
         
     }
     protected function initFields()
     {
         $this->fields = [
-            'name',
-            'role',
-            'email',
-            'password',
-            'phone_number',
+            'room_type',
+            'noofrooms',
+            'specification',
+            'price',
+            'image',
             'deleted_at'
         ];
     }

@@ -76,7 +76,7 @@
 <!-- Add Modal -->
 <div class="modal fade" id="addModal" role="dialog">
     <div class="modal-dialog">
-        <form action="user-list.php" method="POST">
+        <form action="" method="POST">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -129,7 +129,7 @@
 <!-- Edit Modal -->
 <div class="modal fade" id="editModal" role="dialog">
     <div class="modal-dialog">
-        <form action="user-list.php" method="POST">
+        <form action="users/update" method="POST">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,7 +140,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="uname">User Name</label>
-                            <input type="text" class="form-control" id="uname" name="uname" placeholder="User Name" required>
+                            <input type="text" class="form-control" id="uname" name="name" placeholder="User Name" required>
                         </div>
                         <div class="col-md-6">
                             <label for="uemail">User Email</label>
@@ -150,17 +150,17 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="urole">Role</label>
-                            <select name="urole" id="urole" class="form-control">
+                            <select name="role" id="urole" class="form-control">
                                 <option value="1">Cat Owner</option>
                                 <option value="2">Staff</option>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label for="uphone_number">Phone Number</label>
-                            <input type="text" class="form-control" name="uphone_number" id="uphone_number" placeholder="Phone Number" required>
+                            <input type="text" class="form-control" name="phone_number" id="uphone_number" placeholder="Phone Number" required>
                         </div>
                     </div>
-                    <input type="hidden" name="uuser_id" id="uuser_id">
+                    <input type="hidden" name="user_id" id="uuser_id">
                 </div>
                 
                 <div class="modal-footer">
@@ -174,7 +174,7 @@
   <!-- Delete Modal -->
   <div class="modal fade" id="deleteModal" role="dialog">
     <div class="modal-dialog">
-        <form action="user-list.php" method="POST">
+        <form action="users/delete" method="POST">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">

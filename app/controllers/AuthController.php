@@ -18,7 +18,7 @@ class AuthController{
     public function authentication()
     {
         $User = new User($this->dbc);
-        $User = $User->findBy('email',$_POST['email']);
+        $User = $User->findBy('email',$_POST['email'],'=');
         if(empty($User))
         {
             SweetAlert::showMessage('Oops','User not found','error');

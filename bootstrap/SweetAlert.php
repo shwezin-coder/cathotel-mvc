@@ -16,6 +16,7 @@ class SweetAlert {
     }
     public static function redirect_Message($title,$message,$type,$url)
     {
+        $redirect_url = ROOT_DIRECTORY . $url;
           echo "<script>
           $( document ).ready(function() {
             Swal.fire({
@@ -24,7 +25,7 @@ class SweetAlert {
                 type: '$type',
                 confirmButtonText: 'OK'
               }).then(function() {
-                window.location = '$url';
+                window.location.replace('$redirect_url');
             });
         });
           </script>";

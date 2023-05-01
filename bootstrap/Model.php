@@ -14,10 +14,10 @@ abstract class Model{
        $this->initFields();
     }
 
-    public function findBy($fieldName,$fieldValue)
+    public function findBy($fieldName,$fieldValue,$condition)
     {
         
-        $sql = "SELECT * FROM ". $this->tableName . " WHERE ". $fieldName ."=:value";
+        $sql = "SELECT * FROM ". $this->tableName . " WHERE ". $fieldName .$condition." :value";
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute(['value' => $fieldValue]);
         $pageData = $stmt->fetch();
@@ -90,6 +90,7 @@ abstract class Model{
                 . " ) VALUES ( ".$keyBindingsString . ")";
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($prepareFields);
+        return true;
     }
 
 
@@ -99,12 +100,12 @@ abstract class Model{
         $prepareFields = [];
 
         foreach ($findings as $key => $value) {
-            $fieldBindings[$key] = $key .' '. $condition .'  :' . $key;
+            $fieldBindings[$key] = $key .' '. $condition[$key] .'  :' . $key;
             $prepareFields[$key] = $value;
             
         }
 
-        $fieldBindingsString = join('AND',$fieldBindings);
+        $fieldBindingsString = join(' AND ',$fieldBindings);
 
         $sql = "SELECT * FROM " . $this->tableName
                 . " WHERE ".$fieldBindingsString ;

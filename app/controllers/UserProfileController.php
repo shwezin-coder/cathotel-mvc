@@ -16,7 +16,7 @@ class UserProfileController{
         if($auth == true)
         {
             $User = new User($this->dbc);
-            $User = $User->findBy('id',$_SESSION['user']['user_id']);
+            $User = $User->findBy('id',$_SESSION['user']['user_id'],'=');
             return view('user_profile',compact('User'));
         }
         
@@ -24,7 +24,7 @@ class UserProfileController{
     public function update()
     {
         $User = new User($this->dbc);
-        $User = $User->findBy('id',$_SESSION['user']['user_id']);
+        $User = $User->findBy('id',$_SESSION['user']['user_id'],'=');
         $User->setValues($_POST);
         if($User->update())
         {
