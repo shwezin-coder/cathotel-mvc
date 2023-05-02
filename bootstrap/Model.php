@@ -94,7 +94,7 @@ abstract class Model{
     }
 
 
-    public function find($findings,$condition)
+    public function find($findings,$condition, $between = null)
     {
         $fieldBindings = [];
         $prepareFields = [];
@@ -102,13 +102,20 @@ abstract class Model{
         foreach ($findings as $key => $value) {
             $fieldBindings[$key] = $key .' '. $condition[$key] .'  :' . $key;
             $prepareFields[$key] = $value;
-            
         }
 
         $fieldBindingsString = join(' AND ',$fieldBindings);
 
         $sql = "SELECT * FROM " . $this->tableName
-                . " WHERE ".$fieldBindingsString ;
+                . " WHERE ".$fieldBindingsString;
+        
+        if($between != null)
+        {
+            $sql .= " AND ". $between['key'] ." BETWEEN :min AND :max";
+            $prepareFields['min'] = $between['min'];
+            $prepareFields['max'] = $between['max'];
+        }
+        
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($prepareFields);
         $pageData = $stmt->fetchAll();
@@ -170,5 +177,6 @@ abstract class Model{
 
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($prepareFields);
+        return true;
     }
 }

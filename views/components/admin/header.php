@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="room">
+                    <a href="rooms">
                         <i class="pe-7s-note2"></i>
                         <p>Room</p>
                     </a>

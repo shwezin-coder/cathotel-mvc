@@ -44,7 +44,7 @@
                                                 <td>$ <?php echo $value->price; ?></td>
                                                 <td style="width:30% !important;">
                                                         <button class="btn btn-primary uploadbtn btn-sm" data-toggle="modal" data-target="#updateimageModal" data-id="<?php echo $value->id; ?>" data-image="<?php echo $value->image; ?>" style="margin-right:3px !important;">Update Image</button>
-                                                        <a href="featureimage-list.php?id=<?php echo $value->id; ?>" class="btn btn-primary btn-sm">Feature Images</a>
+                                                        <a href="featureimages?id=<?php echo $value->id; ?>" class="btn btn-primary btn-sm">Feature Images</a>
                                                         <button class="btn btn-primary btn-sm editbtn mx-2" data-toggle="modal" data-target="#editModal" data-room='<?php echo json_encode($value); ?>' >Edit</button>
                                                         <button class="btn btn-danger btn-sm deletebtn mx-2" data-toggle="modal" data-target="#deleteModal" data-id="<?php echo $value->id; ?>">Delete</button>
                                                 </td>
