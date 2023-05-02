@@ -64,6 +64,12 @@
                         <p>Room</p>
                     </a>
                 </li>
+                <li>
+                    <a href="cat-questions">
+                        <i class="pe-7s-note2"></i>
+                        <p>Cat Questions</p>
+                    </a>
+                </li>
             </ul>
     	</div>
     </div>

@@ -8,7 +8,6 @@ use Core\UniqueFileStorage;
 
 class RoomShowController{
     private $dbc;
-    private $directory = '../public/storage/rooms/';
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
