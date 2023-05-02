@@ -11,9 +11,6 @@ class HomeController{
     }
     public function view()
     {
-        // $ContactUs = new ContactUs($this->dbc);
-        // $ContactUs->findBy('id',1);
-        // SweetAlert::showMessage('Testing','Testing Successfully','success');
         return view('index');
     }
     public function delete()

@@ -17,7 +17,7 @@ abstract class Model{
     public function findBy($fieldName,$fieldValue,$condition)
     {
         
-        $sql = "SELECT * FROM ". $this->tableName . " WHERE ". $fieldName .$condition." :value";
+        $sql = "SELECT * FROM ". $this->tableName . " WHERE ". $fieldName .' '.$condition." :value";
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute(['value' => $fieldValue]);
         $pageData = $stmt->fetch();
@@ -116,6 +116,37 @@ abstract class Model{
             $prepareFields['max'] = $between['max'];
         }
         
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($prepareFields);
+        $pageData = $stmt->fetchAll();
+        if($pageData)
+        {
+            $className = static::class;
+            foreach ($pageData as $objData) {
+                $object = new $className($this->dbc);
+                $object = $this->setValues($objData,$object);
+                $result[] = $object;
+            }
+            return $result;
+
+        }
+    }
+
+    public function count($column,$findings,$condition, $between = null)
+    {
+        $fieldBindings = [];
+        $prepareFields = [];
+
+        foreach ($findings as $key => $value) {
+            $fieldBindings[$key] = $key .' '. $condition[$key] .'  :' . $key;
+            $prepareFields[$key] = $value;
+        }
+
+        $fieldBindingsString = join(' AND ',$fieldBindings);
+
+        $sql = "SELECT COUNT($column) AS ". 'total'.$column ." FROM " . $this->tableName
+                . " WHERE ".$fieldBindingsString;
+        echo $sql;
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($prepareFields);
         $pageData = $stmt->fetchAll();

@@ -35,4 +35,5 @@ $app::post('/cat-questions/delete','CatQuestionController','delete');
 $app::get('/room-list','RoomShowController','index'); 
 $app::post('/room-list','RoomShowController','search');
 $app::get('/booking','BookingController','index');
+$app::post('/booking','BookingController','save');
 $app->run();

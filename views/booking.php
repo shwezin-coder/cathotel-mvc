@@ -1,5 +1,6 @@
 <?php 
     include_once('../views/components/header.php');
+    $target_dir = ROOT_DIRECTORY ."public/storage/featureimages/";
 ?>
  <!-- Booking Start -->
   <div class="container-xxl py-5" style="margin-bottom:200px !important;">
@@ -12,29 +13,34 @@
             <div class="col-lg-6">
                 <div class="row g-3">
                     <?php 
-                        for ($i=1; $i <= $count_feature_image ; $i++)
+                        if(!empty($FeatureImages))
                         {
-                            if($i%2 == 0)
+                            $i = 1;
+                            foreach($FeatureImages as $key => $value)
                             {
-                                $text_area = "text-start";
+                                if($i%2 == 0)
+                                {
+                                    $text_area = "text-start";
+                                }
+                                else
+                                {
+                                    $text_area = "text-end";
+                                }
+                        ?>
+                                <div class="col-6 <?php echo $text_area; ?>">
+                                    <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="<?php echo $target_dir. $value->image; ?>" style="margin-top: 25%;">
+                                </div>
+                            <?php 
+                                $i++;
                             }
-                            else
-                            {
-                                $text_area = "text-end";
-                            }
-                            $feature_row = mysqli_fetch_assoc($select_feature_image_query);
-                    ?>
-                            <div class="col-6 <?php echo $text_area; ?>">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="<?php echo $target_feature_image_dir. $feature_row['image']; ?>" style="margin-top: 25%;">
-                            </div>
-                        <?php 
-                            }
+                        }
+                      
                         ?>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="wow fadeInUp" data-wow-delay="0.2s">
-                    <form action="booking.php?id=<?php echo $_GET['id']; ?>" method="POST">
+                    <form action="booking?id=<?php echo $_GET['id']; ?>" method="POST">
                         <div class="row g-3">
                             <?php 
                                 if(!isset($_SESSION['user']))
@@ -94,15 +100,12 @@
                             <!-- Cat Questions -->
                             <h5>Cat Information</h5>
                             <?php 
-                                $select_cat_questions = "SELECT * FROM cat_questions
-                                                        ORDER BY id DESC";
-                                $select_cat_questions_query = mysqli_query($connect,$select_cat_questions);
-                                $count_cat_questions = mysqli_num_rows($select_cat_questions_query);
-                                for ($j=0; $j < $count_cat_questions; $j++){
-                                    $row_cat_questions = mysqli_fetch_assoc($select_cat_questions_query);
-                                    $question_type = $row_cat_questions['question_type'];
-                                    $question_text = $row_cat_questions['question_text'];
-                                    $option_values_arr = explode(",",$row_cat_questions['option_values']);
+                                if(!empty($CatQuestions))
+                                {
+                                foreach ($CatQuestions as $key => $value){
+                                    $question_type = $value->question_type;
+                                    $question_text = $value->question_text;
+                                    $option_values_arr = explode(",",$value->option_values);
                                     if($question_type == 'textbox')
                                     {
                             ?>
@@ -123,7 +126,7 @@
                                             <div class="form-floating">
                                             <select name="cat_information[<?php echo $j; ?>][answer_text]" id="<?php echo $question_text; ?>" class="form-control" required>
                                         <?php
-                                            for ($i=0; $i < count($option_values_arr) ; $i++) {  
+                                            for ($i=0; $i < count($option_values_arr); $i++) {  
                                         ?>
                                                 <option value="<?php echo $option_values_arr[$i]; ?>"><?php echo $option_values_arr[$i]; ?></option>
 
@@ -135,9 +138,9 @@
                                             </div>
                                         </div>
                                     <?php
-                                            }
-                                            else
-                                            {
+                                        }
+                                        else
+                                        {
                                     ?>
                                         <div class="col-md-12">
                                             <input type="hidden" name="cat_information[<?php echo $j; ?>][question_text]" value="<?php echo $question_text; ?>">
@@ -154,6 +157,8 @@
                                     <?php
                                             }
                                         }
+                                                                        
+                                }
                                     ?>
                                     <!--- Cat Question End--->
                                     <input type="hidden" name="room_id" value="<?php echo $_GET['id']; ?>">

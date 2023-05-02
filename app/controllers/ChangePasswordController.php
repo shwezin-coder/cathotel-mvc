@@ -22,7 +22,7 @@ class ChangePasswordController{
     public function update()
     {
         $User = new User($this->dbc);
-        $User = $User->findBy('id',$_SESSION['user']['user_id']);
+        $User = $User->findBy('id',$_SESSION['user']['user_id'],'=');
         if(!password_verify($_POST['password'],$User->password))
         {
            SweetAlert::showMessage('Oops','Password is incorrect','error'); 
