@@ -48,19 +48,19 @@
                             ?>
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name" value="<?php $_POST['name'] ?? ''; ?>">
                                     <label for="name">Your Name</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" value="<?php echo $_POST['email'] ?? ''; ?>">
                                     <label for="email">Your Email</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" name="ph_number" id="ph_number" placeholder="Your Phone Number">
+                                    <input type="text" class="form-control" name="ph_number" id="ph_number" placeholder="Your Phone Number" value="<?php echo $_POST['ph_number'] ?? ''; ?>">
                                     <label for="ph_number">Phone Number</label>
                                 </div>
                             </div>
@@ -75,25 +75,25 @@
                             ?>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="date" name="check_in" min="<?php echo date('Y-m-d'); ?>" class="form-control datetimepicker-input" id="checkin" placeholder="Check In" />
+                                    <input type="date" name="check_in" min="<?php echo date('Y-m-d'); ?>" class="form-control datetimepicker-input" value="<?php echo $_POST['check_in'] ?? ''; ?>" id="checkin" placeholder="Check In" />
                                     <label for="checkin">Check In</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="date" name="check_out" min="<?php echo date('Y-m-d'); ?>" class="form-control" id="checkout" placeholder="Check Out" />
+                                    <input type="date" name="check_out" min="<?php echo date('Y-m-d'); ?>" class="form-control" id="checkout" value="<?php echo $_POST['check_out'] ?? ''; ?>" placeholder="Check Out" />
                                     <label for="checkout">Check Out</label>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input type="number" name="noofrooms" class="form-control" id="noofrooms" placeholder="No of Rooms" />
+                                    <input type="number" name="noofrooms" class="form-control" id="noofrooms" value="<?php echo $_POST['noofrooms'] ?? ''; ?>" placeholder="No of Rooms" />
                                     <label for="checkout">No of Rooms</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" name="special_request" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                    <textarea class="form-control" name="special_request" placeholder="Special Request" id="message" value="<?php echo $_POST['special_request'] ?? ''; ?>" style="height: 100px"></textarea>
                                     <label for="message">Special Request</label>
                                 </div>
                             </div>
@@ -102,7 +102,9 @@
                             <?php 
                                 if(!empty($CatQuestions))
                                 {
+                                $j = 1;
                                 foreach ($CatQuestions as $key => $value){
+
                                     $question_type = $value->question_type;
                                     $question_text = $value->question_text;
                                     $option_values_arr = explode(",",$value->option_values);
@@ -156,6 +158,7 @@
                                         </div>
                                     <?php
                                             }
+                                            $j++;
                                         }
                                                                         
                                 }

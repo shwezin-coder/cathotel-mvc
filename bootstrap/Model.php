@@ -79,8 +79,7 @@ abstract class Model{
         foreach ($this->fields as $fieldName) {
             $fieldBindings[$fieldName] = $fieldName;
             $keyBindings[$fieldName] = ":" .$fieldName;
-            $prepareFields[$fieldName] = $this->$fieldName;
-            
+            $prepareFields[$fieldName] = $this->$fieldName;     
         }
 
         $fieldBindingsString = join(',',$fieldBindings);
@@ -146,7 +145,6 @@ abstract class Model{
 
         $sql = "SELECT COUNT($column) AS ". 'total'.$column ." FROM " . $this->tableName
                 . " WHERE ".$fieldBindingsString;
-        echo $sql;
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($prepareFields);
         $pageData = $stmt->fetchAll();
@@ -156,11 +154,32 @@ abstract class Model{
             foreach ($pageData as $objData) {
                 $object = new $className($this->dbc);
                 $object = $this->setValues($objData,$object);
+                var_dump($object);
                 $result[] = $object;
             }
             return $result;
 
         }
+    }
+
+    public function sum($column,$findings,$condition, $between = null)
+    {
+        $fieldBindings = [];
+        $prepareFields = [];
+
+        foreach ($findings as $key => $value) {
+            $fieldBindings[$key] = $key .' '. $condition[$key] .'  :' . $key;
+            $prepareFields[$key] = $value;
+        }
+
+        $fieldBindingsString = join(' AND ',$fieldBindings);
+
+        $sql = "SELECT SUM($column) AS ". 'total'.$column ." FROM " . $this->tableName
+                . " WHERE ".$fieldBindingsString;
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($prepareFields);
+        $pageData = $stmt->fetchAll();
+        return $pageData[0]['total'.$column];
     }
 
 

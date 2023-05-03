@@ -25,24 +25,31 @@ class BookingController{
     }
     public function save()
     {
-        $finding['check_in'] = $_POST['check_out'];
-        $condition['check_in'] = '>=';
-        $finding['check_out'] = $_POST['check_out'];
-        $condition['check_out'] = '>=';
-        $Booking = new Booking($this->dbc);
-        $Bookings = $Booking->count('noofrooms',$finding,$condition);
-        $totalrooms = $Bookings['noofrooms'];
         $room_id = $_POST['room_id'];
-        if($totalrooms > 0)
+        $finding['check_in'] = $_POST['check_out'];
+        $condition['check_in'] = '<=';
+        $finding['check_out'] = $_POST['check_in'];
+        $condition['check_out'] = '>=';
+        $Rooms = new Room($this->dbc);
+        $findingroom['id'] = $room_id;
+        $conditionroom['id'] = '=';
+        $available_rooms = $Rooms->sum('noofrooms',$findingroom,$conditionroom);
+        $Booking = new Booking($this->dbc);
+        $totalrooms = $Booking->sum('noofrooms',$finding,$condition);
+        if($totalrooms > $available_rooms)
         {
-            return SweetAlert::redirect_Message('Oops','Room isn\'t available for this date','error',"booking?id=$room_id");
+            return SweetAlert::redirect_Message('Oops','Room isn unavailable for this date','error',"booking?id=$room_id");
         }
         if(isset($_POST['user_id']))
         {
             $record['user_id'] = $_POST['user_id'];
+            $record['name'] = '';
+            $record['email'] = '';
+            $record['ph_number'] = '';
         }
         else
         {
+            $record['user_id'] = 0;
             $record['name'] = $_POST['name'];
             $record['email'] = $_POST['email'];
             $record['ph_number'] = $_POST['ph_number'];
