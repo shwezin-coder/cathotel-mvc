@@ -16,7 +16,7 @@ class IndexController{
     {
         $User = new User($this->dbc);
         $totalusers = $User->count('id',['deleted_at' => 1, 'role' => 1],['deleted_at' => '!=', 'role' => '!=']);
-        echo $totalusers;
+        
         $Room = new Room($this->dbc);
         $totalrooms = $Room->sum('noofrooms',['deleted_at' => 0],['deleted_at' => '!=']);
 

@@ -59,7 +59,8 @@ class Booking extends Model{
     {
         $sql = "SELECT MONTH(check_in) AS month, COUNT(*) AS totalbookings
                 FROM booking
-                GROUP BY MONTH(check_in)";
+                GROUP BY MONTH(check_in)
+                ORDER BY MONTH(check_in)";
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute();
         $pageData = $stmt->fetchAll();
@@ -67,7 +68,7 @@ class Booking extends Model{
         $totalbookings_arr = array();
         foreach($pageData as $Booking)
         {
-           array_push($month_arr,$Booking['month']);
+           array_push($month_arr,date('F', mktime(0, 0, 0, $Booking['month'], 1)));
            array_push($totalbookings_arr,$Booking['totalbookings']);
         }
         $Booking_arr[0] = $month_arr;
