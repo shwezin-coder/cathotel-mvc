@@ -16,17 +16,9 @@ class ContactController{
         $ContactUs = new ContactUs($this->dbc);
         $ContactUs->setValues($_POST);
         $ContactUs->save();
-        SweetAlert::showMessage("Success","Insert Successfully","success");
-        return view('contact_us.index');
+        SweetAlert::showMessage("Success","Submitted Successfully","success");
+        return view('contact_us');
 
     }
-    public function delete()
-    {
-        $ContactUs = new ContactUs($this->dbc);
-        $ContactUs->setValues(['id' => $_GET['id']]);
-        $ContactUs->delete();
-        SweetAlert::showMessage("Success","Delete Successfully","success");
-        return view('contact_us.index');
 
-    }
 }

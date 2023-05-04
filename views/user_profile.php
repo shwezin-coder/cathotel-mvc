@@ -10,17 +10,9 @@
                 </div>
                 <div class="row g-4">
                     <div class="col-12">
-                        <div class="row gy-4">
-                            <div class="col-md-4">
-                                <p><a href="change-password"><i class="fa fa-envelope-open text-primary me-2"></i><span class="text-dark">Change Password</span></a></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><a href="view-booking.php"><i class="fa fa-envelope-open text-primary me-2"></i><span class="text-dark">View Booking</span></a></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><a href="logout"><i class="fa fa-envelope-open text-primary me-2"></i><span class="text-dark">Log Out</span></a></p>
-                            </div>
-                        </div>
+                        <?php 
+                            include_once('../views/components/menu_component.php');
+                        ?>
                     </div>
                     <div class="col-md-12" style="margin-bottom:100px !important;">
                         <div class="wow fadeInUp" data-wow-delay="0.2s">

@@ -66,7 +66,7 @@
                                                 <td><?php echo $email; ?></td>
                                                 <td><?php echo $ph_number; ?></td>
                                                 <td><?php echo $room_type;?></td>
-                                                <td><?php echo $Booking->check_in. '-' .$Booking->check_out ;?></td>
+                                                <td> From <?php echo $Booking->check_in. ' To ' .$Booking->check_out ;?></td>
                                                 <td><?php echo $Booking->noofrooms; ?></td>
                                                 <td><?php echo $Booking->special_request; ?></td>
                                                 <td style="width:30%;">
