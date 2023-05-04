@@ -1,6 +1,5 @@
 <?php 
     include_once('../views/components/header.php');
-    $target_dir = ROOT_DIRECTORY ."public/storage/rooms/";
 ?>
 <!-- Booking Start -->
 <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top:50px !important;">

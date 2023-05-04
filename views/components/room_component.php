@@ -1,3 +1,6 @@
+<?php 
+        $target_dir = ROOT_DIRECTORY ."public/storage/rooms/";
+?>
 <!-- Room Start -->
 <div class="container-xxl py-5" style="margin-bottom:200px !important;">
     <div class="container">
