@@ -70,7 +70,7 @@ abstract class Model{
         }
         return $object;
     }
-
+    
     public function save()
     {
         $fieldBindings = [];
@@ -148,18 +148,7 @@ abstract class Model{
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($prepareFields);
         $pageData = $stmt->fetchAll();
-        if($pageData)
-        {
-            $className = static::class;
-            foreach ($pageData as $objData) {
-                $object = new $className($this->dbc);
-                $object = $this->setValues($objData,$object);
-                var_dump($object);
-                $result[] = $object;
-            }
-            return $result;
-
-        }
+        return $pageData[0]['total'.$column];
     }
 
     public function sum($column,$findings,$condition, $between = null)
@@ -181,7 +170,6 @@ abstract class Model{
         $pageData = $stmt->fetchAll();
         return $pageData[0]['total'.$column];
     }
-
 
     public function update()
     {

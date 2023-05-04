@@ -36,4 +36,6 @@ $app::get('/room-list','RoomShowController','index');
 $app::post('/room-list','RoomShowController','search');
 $app::get('/booking','BookingController','index');
 $app::post('/booking','BookingController','save');
+$app::get('/booking-list','BookingListController','index');
+$app::get('/export','BookingListController','exportcsv');
 $app->run();

@@ -47,7 +47,7 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard">
+                    <a href="admin">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
@@ -68,6 +68,12 @@
                     <a href="cat-questions">
                         <i class="pe-7s-note2"></i>
                         <p>Cat Questions</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="booking-list">
+                        <i class="pe-7s-note2"></i>
+                        <p>Bookings</p>
                     </a>
                 </li>
             </ul>
