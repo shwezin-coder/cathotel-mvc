@@ -2,6 +2,13 @@
 
 This is the mvc system using Pure PHP Language. It is suitable for all users.
 
+## Front End 
+![image](https://user-images.githubusercontent.com/70483157/236261012-2c808dc6-1453-4f89-9545-e21bfa2d3896.png)
+
+## Back End
+![image](https://user-images.githubusercontent.com/70483157/236261223-6d8326b0-c840-4b82-95f9-94e9eac7fae8.png)
+
+
 ## Principle 
 - Solid Principle
 
