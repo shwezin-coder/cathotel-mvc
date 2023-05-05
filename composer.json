@@ -12,6 +12,6 @@
         "phpunit/phpunit": "10"
     },
     "require": {
-        "monolog/monolog": "*"
+        "monolog/monolog": "^3.3"
     }
 }
