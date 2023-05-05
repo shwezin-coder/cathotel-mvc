@@ -46,8 +46,8 @@ This is the mvc system using Pure PHP Language. It is suitable for all users.
 
 ## Admin Account
 
-admin@gmail.com
-Sz12345
+admin@gmail.com - email
+Sz12345 - password
 
 ## Testing 
 - PHP Unit Testing
