@@ -44,6 +44,10 @@ This is the mvc system using Pure PHP Language. It is suitable for all users.
  - Bar Chart for monthly booking
 
 
+## Admin Account
+
+admin@gmail.com - email <br>
+Sz12345 - password
 
 ## Testing 
 - PHP Unit Testing
