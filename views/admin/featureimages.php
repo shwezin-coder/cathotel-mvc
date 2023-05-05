@@ -9,7 +9,7 @@
                             <div class="header">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="title"><a href="index.php">Dashboard</a> | <a href="room-list.php">Room List </a> | Feature Images</h4>
+                                        <h4 class="title"><a href="index.php">Dashboard</a> | <a href="rooms">Room List </a> | Feature Images</h4>
                                     </div>
                                     <div class="col-md-6">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" style="float:right !important;">Add Image</button>

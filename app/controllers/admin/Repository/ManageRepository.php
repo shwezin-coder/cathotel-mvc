@@ -1,5 +1,5 @@
 <?php 
-namespace App\Controllers\Repository;
+namespace App\Controllers\Admin\Repository;
 
 Interface ManageRepository{
     public function index();

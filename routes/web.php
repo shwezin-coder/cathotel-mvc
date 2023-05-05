@@ -14,6 +14,7 @@ $app::get('/admin','IndexController','index');
 $app::get('/user-profile','UserProfileController','index');
 $app::post('/user-profile','UserProfileController','update');
 $app::get('/change-password','ChangePasswordController','index');
+$app::post('/change-password','ChangePasswordController','update');
 $app::get('/signup','SignUpController','index');
 $app::post('/signup','SignUpController','save');
 $app::get('/users','UserController','index');

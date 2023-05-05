@@ -1,7 +1,7 @@
 <?php 
 namespace App\Controllers\Admin;
 
-use App\Controllers\Repository\ManageRepository;
+use App\Controllers\Admin\Repository\ManageRepository;
 use App\Models\User;
 use Core\Auth;
 use Core\SweetAlert;
@@ -48,7 +48,7 @@ class UserController implements ManageRepository{
         else
         {
             $_POST['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
-            
+            $_POST['deleted_at'] = 0;
             $this->User->setValues($_POST);
             $this->User->save();
             return SweetAlert::redirect_Message('Succcess','Saved Successfully','success','users');

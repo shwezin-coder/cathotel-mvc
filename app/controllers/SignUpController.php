@@ -26,6 +26,7 @@ class SignUpController{
         else
         {
             $_POST['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
+            $_POST['deleted_at'] = 0;
             $this->User->setValues($_POST);
             $this->User->save();
             SweetAlert::redirect_Message('Success','Insert Successfully','success','login');

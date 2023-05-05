@@ -1,7 +1,7 @@
 <?php 
 namespace App\Controllers\Admin;
 
-use App\Controllers\Repository\ManageRepository;
+use App\Controllers\Admin\Repository\ManageRepository;
 use App\Models\FeatureImage;
 use Core\Auth;
 use Core\SweetAlert;

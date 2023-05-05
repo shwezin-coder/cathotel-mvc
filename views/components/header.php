@@ -120,7 +120,7 @@ $current_page = str_replace('/cathotel-mvc/','',strtolower($_SERVER['REQUEST_URI
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="home" class="nav-item nav-link <?php if($current_page == ''){ echo 'active';}?>">Home</a>
+                                <a href="home" class="nav-item nav-link <?php if($current_page == 'home' || $current_page == ''){ echo 'active';}?>">Home</a>
                                 <a href="room-list" class="nav-item nav-link <?php if($current_page == 'room-list'){ echo 'active';} ?>">Rooms</a>
                                 <a href="contact-us" class="nav-item nav-link <?php if($current_page == 'contact-us'){ echo 'active';} ?>">Contact</a>
                             </div>
