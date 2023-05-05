@@ -15,7 +15,6 @@ This is the mvc system using Pure PHP Language. It is suitable for all users.
 ## Design Patterns
 - Active Record
 - Singleton 
-- Abstract Factory
 - Repository Pattern
 
 ## Timebox 
