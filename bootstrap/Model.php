@@ -199,19 +199,21 @@ abstract class Model{
         return true;
     }
 
-    public function delete()
+    public function delete($findings,$condition)
     {
-        $keyBindings = [];
+        $fieldBindings = [];
         $prepareFields = [];
-        foreach ($this->primaryKeys as $keyName) {
-            $keyBindings[$keyName] = $keyName . ' = :' . $keyName;
-            $prepareFields[$keyName] = $this->$keyName;
+        
+        
+        foreach ($findings as $key => $value) {
+            $fieldBindings[$key] = $key .' '. $condition[$key] .'  :' . $key;
+            $prepareFields[$key] = $value;
         }
 
-        $keyBindingsString = join(',',$keyBindings);
+        $fieldBindingsString = join(',',$fieldBindings);
 
         $sql = "DELETE FROM " . $this->tableName
-                . " WHERE ".$keyBindingsString;
+                . " WHERE ".$fieldBindingsString;
 
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($prepareFields);

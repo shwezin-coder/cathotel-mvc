@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\Admin\Repository\ManageRepository;
 use App\Models\Room;
 use Core\Auth;
+use Core\DatabaseConnection;
 use Core\SweetAlert;
 use Core\UniqueFileStorage;
 
@@ -82,6 +83,23 @@ class RoomController implements ManageRepository{
         if($this->Room->update() == true)
         {
             return SweetAlert::redirect_Message('Success','Deleted Successfully','success','rooms');
+        }
+    }
+    public function testFindBy()
+    {
+        DatabaseConnection::connect('localhost','adorable_cat','root','');
+        $dbh = DatabaseConnection::getInstance();
+        $dbc = $dbh->getConnection();
+        $Room2 = new Room($dbc);
+        $Room2 = $Room2->findBy('id',3,'=');
+        foreach($Room2 as $key => $value)
+        {
+            if($key == 'room_type')
+            {
+                echo $value;
+                die;
+            }
+            
         }
     }
 

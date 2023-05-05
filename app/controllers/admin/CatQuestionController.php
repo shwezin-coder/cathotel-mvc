@@ -48,7 +48,9 @@ class CatQuestionController implements ManageRepository{
     {
 
         $this->CatQuestions->setValues(['id' => $_POST['dquestion_id']]);
-        if($this->CatQuestions->delete() == true)
+        $finding['id'] = $_POST['dquestion_id'];
+        $condition['id'] = '=';
+        if($this->CatQuestions->delete($finding,$condition) == true)
         {
             return SweetAlert::redirect_Message('success','Deleted Successfully','success','cat-questions');
         } 

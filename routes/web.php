@@ -41,4 +41,5 @@ $app::post('/booking','BookingController','save');
 $app::get('/booking-list','BookingListController','index');
 $app::get('/export','BookingListController','exportcsv');
 $app::get('/view-booking','ViewBookingController','index');
+$app::get('/test','RoomController','testFindBy');
 $app->run();
