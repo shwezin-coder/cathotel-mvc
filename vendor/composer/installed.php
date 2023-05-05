@@ -3,7 +3,7 @@
         'name' => 'cathotel/mvc-framework-with-php',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'be4856c338d7b498cd0e23e1d0815a1e8f391002',
+        'reference' => '92716e9c22002207fc54f568bb7326b4d165f7ec',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'cathotel/mvc-framework-with-php' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'be4856c338d7b498cd0e23e1d0815a1e8f391002',
+            'reference' => '92716e9c22002207fc54f568bb7326b4d165f7ec',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

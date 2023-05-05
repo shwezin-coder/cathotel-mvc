@@ -7,15 +7,21 @@ use Core\Auth;
 use Core\DatabaseConnection;
 use Core\SweetAlert;
 use Core\UniqueFileStorage;
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class RoomController implements ManageRepository{
     private $dbc;
     private $directory = '../public/storage/rooms/';
     private $Room;
+    private $logger;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
         $this->Room = new Room($this->dbc);
+        $this->logger = new Logger('logging');
+        $this->logger->pushHandler(new StreamHandler('../log/log',Level::Warning));
     }
     public function index()
     {
@@ -44,6 +50,7 @@ class RoomController implements ManageRepository{
             $Room = $this->Room->setValues($record);
             if($Room->save() == true)
             {
+                $this->logger->warning('User ID ' .$_SESSION['user']['user_id']. ' has updated '. $record['room_type']);
                 return SweetAlert::redirect_Message('Success','Room created successfully','success','rooms');
             }
             return SweetAlert::redirect_Message('Oops','Something Wrong','error','rooms');
@@ -72,6 +79,7 @@ class RoomController implements ManageRepository{
         $this->Room->setValues($_POST);
         if($this->Room->update() == true)
         {
+            $this->logger->warning('User ID ' .$_SESSION['user']['user_id']. ' has updated '. $_POST['room_type']);
            return SweetAlert::redirect_Message('Success','Updated Successfully','success','rooms');
         }
     }
@@ -82,25 +90,9 @@ class RoomController implements ManageRepository{
         $this->Room->setValues($updated_data);
         if($this->Room->update() == true)
         {
+            $this->logger->warning('User ID ' .$_SESSION['user']['user_id']. ' has deleted Room ID '. $_POST['droom_id']);
             return SweetAlert::redirect_Message('Success','Deleted Successfully','success','rooms');
         }
     }
-    public function testFindBy()
-    {
-        DatabaseConnection::connect('localhost','adorable_cat','root','');
-        $dbh = DatabaseConnection::getInstance();
-        $dbc = $dbh->getConnection();
-        $Room2 = new Room($dbc);
-        $Room2 = $Room2->findBy('id',3,'=');
-        foreach($Room2 as $key => $value)
-        {
-            if($key == 'room_type')
-            {
-                echo $value;
-                die;
-            }
-            
-        }
-    }
-
+    
 }
