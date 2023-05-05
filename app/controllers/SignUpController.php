@@ -5,9 +5,11 @@ use App\Models\User;
 use Core\SweetAlert;
 class SignUpController{
     private $dbc;
+    private $User;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->User = new User($this->dbc);
     }
     public function index()
     {
@@ -24,9 +26,8 @@ class SignUpController{
         else
         {
             $_POST['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
-            $User = new User($this->dbc);
-            $User->setValues($_POST);
-            $User->save();
+            $this->User->setValues($_POST);
+            $this->User->save();
             SweetAlert::redirect_Message('Success','Insert Successfully','success','login');
         }
        

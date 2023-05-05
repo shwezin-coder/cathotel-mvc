@@ -6,9 +6,11 @@ use Core\Auth;
 use Core\SweetAlert;
 class ChangePasswordController{
     private $dbc;
+    private $User;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->User = new User($this->dbc);
     }
     public function index()
     {
@@ -21,8 +23,7 @@ class ChangePasswordController{
     }
     public function update()
     {
-        $User = new User($this->dbc);
-        $User = $User->findBy('id',$_SESSION['user']['user_id'],'=');
+        $User = $this->User->findBy('id',$_SESSION['user']['user_id'],'=');
         if(!password_verify($_POST['password'],$User->password))
         {
            SweetAlert::showMessage('Oops','Password is incorrect','error'); 

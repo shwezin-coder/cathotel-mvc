@@ -8,17 +8,19 @@ use Core\UniqueFileStorage;
 
 class RoomShowController{
     private $dbc;
+    private $Room;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->Room = new Room($this->dbc);
     }
     public function index()
     {
         $find['deleted_at'] = 0;
         $condition['deleted_at'] = '=';
-        $Room = new Room($this->dbc);
-        $Rooms = $Room->find($find,$condition);
-        $RoomTypes = $Room->find($find,$condition);
+        
+        $Rooms = $this->Room->find($find,$condition);
+        $RoomTypes = $this->Room->find($find,$condition);
         return view('room_list',compact('Rooms','RoomTypes'));
     }
     public function search()
@@ -45,9 +47,9 @@ class RoomShowController{
         }
         $between['key'] = 'price';
         $condition['price'] = "=";
-        $Room = new Room($this->dbc);
-        $Rooms = $Room->find($find,$condition,$between);
-        $RoomTypes = $Room->find($findtype,$conditiontype);
+        
+        $Rooms = $this->Room->find($find,$condition,$between);
+        $RoomTypes = $this->Room->find($findtype,$conditiontype);
         return view('room_list',compact('Rooms','RoomTypes'));
     }
 }

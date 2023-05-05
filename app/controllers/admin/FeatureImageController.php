@@ -1,17 +1,20 @@
 <?php 
 namespace App\Controllers\Admin;
 
+use App\Controllers\Repository\ManageRepository;
 use App\Models\FeatureImage;
 use Core\Auth;
 use Core\SweetAlert;
 use Core\UniqueFileStorage;
 
-class FeatureImageController{
+class FeatureImageController implements ManageRepository{
     private $dbc;
     private $directory = '../public/storage/featureimages/';
+    private $FeatureImage;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->FeatureImage = new FeatureImage($this->dbc);
     }
     public function index()
     {
@@ -20,8 +23,8 @@ class FeatureImageController{
         {
             $find['room_id'] = $_GET['id'];
             $condition['room_id'] = '=';
-            $FeatureImages = new FeatureImage($this->dbc);
-            $FeatureImages = $FeatureImages->find($find,$condition);
+
+            $FeatureImages = $this->FeatureImage->find($find,$condition);
             return view('admin.featureimages',compact('FeatureImages'));
         }
 
@@ -35,8 +38,8 @@ class FeatureImageController{
         {
             $record['image'] = $uploadFile;
             $record['room_id'] = $_POST['room_id'];
-            $FeatureImage = new FeatureImage($this->dbc);
-            $FeatureImage = $FeatureImage->setValues($record);
+
+            $FeatureImage = $this->FeatureImage->setValues($record);
             if($FeatureImage->save() == true)
             {
                 return SweetAlert::redirect_Message('Success','Feature image created successfully','success',"featureimages?id=$room_id");
@@ -47,16 +50,15 @@ class FeatureImageController{
     public function update()
     {
         $room_id = $_GET['id'];
-        $FeatureImage = new FeatureImage($this->dbc);
         $UniqueFileStorage = new UniqueFileStorage($this->directory);
         $uploadFile = $UniqueFileStorage->saveFile($_FILES['image'],"featureimages?id=$room_id");
         if(!empty($uploadFile))
         {
             unlink($this->directory. $_POST['old_image']);
             $record['image'] = $uploadFile;
-            $FeatureImage->findBy('id',$_POST['ufeatureimage_id'],'=');
-            $FeatureImage->setValues($record);
-            if($FeatureImage->update() == true)
+            $this->FeatureImage->findBy('id',$_POST['ufeatureimage_id'],'=');
+            $this->FeatureImage->setValues($record);
+            if($this->FeatureImage->update() == true)
             {
                 return SweetAlert::redirect_Message('Success','Update Image Successfully','success',"featureimages?id=$room_id");
             }
@@ -67,9 +69,8 @@ class FeatureImageController{
     {
         $room_id = $_GET['id'];
         unlink($this->directory.$_POST['dimage']);
-        $FeatureImage = new FeatureImage($this->dbc);
-        $FeatureImage->setValues(['id' => $_POST['dfeatureimage_id']]);
-        if($FeatureImage->delete() == true)
+        $this->FeatureImage->setValues(['id' => $_POST['dfeatureimage_id']]);
+        if($this->FeatureImage->delete() == true)
         {
             return SweetAlert::redirect_Message("Success","Delete Successfully","success","featureimages?id=$room_id");
         }

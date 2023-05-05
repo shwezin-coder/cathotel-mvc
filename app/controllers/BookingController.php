@@ -9,9 +9,11 @@ use Core\SweetAlert;
 
 class BookingController{
     private $dbc;
+    private $Booking;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->Booking = new Booking($this->dbc);
     }
     public function index()
     {
@@ -34,8 +36,7 @@ class BookingController{
         $findingroom['id'] = $room_id;
         $conditionroom['id'] = '=';
         $available_rooms = $Rooms->sum('noofrooms',$findingroom,$conditionroom);
-        $Booking = new Booking($this->dbc);
-        $totalrooms = $Booking->sum('noofrooms',$finding,$condition);
+        $totalrooms = $this->Booking->sum('noofrooms',$finding,$condition);
         if($totalrooms > $available_rooms)
         {
             return SweetAlert::redirect_Message('Oops','Room isn unavailable for this date','error',"booking?id=$room_id");
@@ -60,7 +61,7 @@ class BookingController{
         $record['special_request'] = $_POST['special_request'];
         $record['cat_information'] = json_encode($_POST['cat_information']);
         $record['room_id'] = $room_id;
-        $SaveBooking = $Booking->setValues($record);
+        $SaveBooking = $this->Booking->setValues($record);
         if($SaveBooking->save() == true)
         {
             return SweetAlert::redirect_Message('Success','Book Successfully','error',"room-list");

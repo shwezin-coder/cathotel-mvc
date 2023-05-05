@@ -7,17 +7,18 @@ use Core\Auth;
 
 class ViewBookingController{
     private $dbc;
+    private $Bookings;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->Bookings = new Booking($this->dbc);
     }
     public function index()
     {
         $auth = Auth::auth();
         if($auth == true)
         {
-            $Bookings = new Booking($this->dbc);
-            $Bookings = $Bookings->findAll();
+            $Bookings = $this->Bookings->findAll();
 
             foreach ($Bookings as $key => $value) {
                 $Room = new Room($this->dbc);

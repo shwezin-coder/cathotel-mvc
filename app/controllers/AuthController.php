@@ -7,9 +7,11 @@ use Core\SweetAlert;
 
 class AuthController{
     private $dbc;
+    private $User;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->User = new User($this->dbc);
     }
     public function index(){
         return view('login');
@@ -17,8 +19,8 @@ class AuthController{
 
     public function authentication()
     {
-        $User = new User($this->dbc);
-        $User = $User->findBy('email',$_POST['email'],'=');
+       
+        $User = $this->User->findBy('email',$_POST['email'],'=');
         if(empty($User))
         {
             SweetAlert::showMessage('Oops','User not found','error');

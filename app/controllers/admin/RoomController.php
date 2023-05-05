@@ -1,17 +1,20 @@
 <?php 
 namespace App\Controllers\Admin;
 
+use App\Controllers\Repository\ManageRepository;
 use App\Models\Room;
 use Core\Auth;
 use Core\SweetAlert;
 use Core\UniqueFileStorage;
 
-class RoomController{
+class RoomController implements ManageRepository{
     private $dbc;
     private $directory = '../public/storage/rooms/';
+    private $Room;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->Room = new Room($this->dbc);
     }
     public function index()
     {
@@ -20,8 +23,7 @@ class RoomController{
         {
             $find['deleted_at'] = 0;
             $condition['deleted_at'] = '=';
-            $Rooms = new Room($this->dbc);
-            $Rooms = $Rooms->find($find,$condition);
+            $Rooms = $this->Room->find($find,$condition);
             return view('admin.rooms',compact('Rooms'));
         }
 
@@ -38,8 +40,7 @@ class RoomController{
             $record['price'] = $_POST['price'];
             $record['specification'] = $_POST['specification'];
             $record['deleted_at'] = 0;
-            $Room = new Room($this->dbc);
-            $Room = $Room->setValues($record);
+            $Room = $this->Room->setValues($record);
             if($Room->save() == true)
             {
                 return SweetAlert::redirect_Message('Success','Room created successfully','success','rooms');
@@ -49,16 +50,15 @@ class RoomController{
     }
     public function updateImage()
     {
-        $Room = new Room($this->dbc);
         $UniqueFileStorage = new UniqueFileStorage($this->directory);
         $uploadFile = $UniqueFileStorage->saveFile($_FILES['image'],'rooms');
         if(!empty($uploadFile))
         {
             unlink($this->directory. $_POST['old_image']);
             $record['image'] = $uploadFile;
-            $Room->findBy('id',$_POST['iroom_id'],'=');
-            $Room->setValues($record);
-            if($Room->update() == true)
+            $this->Room->findBy('id',$_POST['iroom_id'],'=');
+            $this->Room->setValues($record);
+            if($this->Room->update() == true)
             {
                 return SweetAlert::redirect_Message('Success','Update Image Successfully','success','rooms');
             }
@@ -67,21 +67,19 @@ class RoomController{
     }
     public function update()
     {
-        $Room = new Room($this->dbc);
-        $Room->findBy('id',$_POST['uroom_id'],'=');
-        $Room->setValues($_POST);
-        if($Room->update() == true)
+        $this->Room->findBy('id',$_POST['uroom_id'],'=');
+        $this->Room->setValues($_POST);
+        if($this->Room->update() == true)
         {
            return SweetAlert::redirect_Message('Success','Updated Successfully','success','rooms');
         }
     }
     public function delete()
     {
-        $Room = new Room($this->dbc);
-        $Room->findBy('id',$_POST['droom_id'],'=');
+        $this->Room->findBy('id',$_POST['droom_id'],'=');
         $updated_data['deleted_at'] = 1; 
-        $Room->setValues($updated_data);
-        if($Room->update() == true)
+        $this->Room->setValues($updated_data);
+        if($this->Room->update() == true)
         {
             return SweetAlert::redirect_Message('Success','Deleted Successfully','success','rooms');
         }

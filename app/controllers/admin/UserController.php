@@ -1,15 +1,18 @@
 <?php 
 namespace App\Controllers\Admin;
 
+use App\Controllers\Repository\ManageRepository;
 use App\Models\User;
 use Core\Auth;
 use Core\SweetAlert;
 
-class UserController{
+class UserController implements ManageRepository{
     private $dbc;
+    private $User;
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
+        $this->User = new User($this->dbc);
     }
     public function index()
     {
@@ -20,18 +23,18 @@ class UserController{
             $condition['role'] = '!=';
             $find['deleted_at'] = 0;
             $condition['deleted_at'] = '=';
-            $Users = new User($this->dbc);
-            $Users = $Users->find($find,$condition);
+            
+            $Users = $this->User->find($find,$condition);
             return view('admin.users',compact('Users'));
         }
 
     }
     public function update()
     {
-        $User = new User($this->dbc);
-        $User->findBy('id',$_POST['user_id'],'=');
-        $User->setValues($_POST);
-        if($User->update() == true)
+        
+        $this->User->findBy('id',$_POST['user_id'],'=');
+        $this->User->setValues($_POST);
+        if($this->User->update() == true)
         {
            return SweetAlert::redirect_Message('Success','Updated Successfully','success','users');
         }
@@ -45,19 +48,19 @@ class UserController{
         else
         {
             $_POST['password'] = password_hash($_POST['password'],PASSWORD_DEFAULT);
-            $User = new User($this->dbc);
-            $User->setValues($_POST);
-            $User->save();
+            
+            $this->User->setValues($_POST);
+            $this->User->save();
             return SweetAlert::redirect_Message('Succcess','Saved Successfully','success','users');
         }
     }
     public function delete()
     {
-        $User = new User($this->dbc);
-        $User->findBy('id',$_POST['duser_id'],'=');
+        
+        $this->User->findBy('id',$_POST['duser_id'],'=');
         $updated_data['deleted_at'] = 1; 
-        $User->setValues($updated_data);
-        if($User->update() == true)
+        $this->User->setValues($updated_data);
+        if($this->User->update() == true)
         {
             return SweetAlert::redirect_Message('Success','Deleted Successfully','success','users');
         }

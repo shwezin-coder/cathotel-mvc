@@ -22,10 +22,6 @@ trait RouteMethod{
             'method' => $method
         ];
     }
-    public static function middleware($middleware)
-    {
-        
-    }
     public static function cleanUrl($url){}
     public static function cleanClass($class){}
     public static function cleanMethod($method){}
